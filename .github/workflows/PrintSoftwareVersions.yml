@@ -1,0 +1,37 @@
+
+name: Print Software Versions
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  PrintSoftwareVersions:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Print Python Version
+        run: python --version
+
+      - name: Install OpenCV
+        run: python -m pip install opencv-contrib-python
+
+      - name: Print OpenCV Version
+        run: python -c "import cv2; print('OpenCV version:', cv2.__version__); print('ArUco available:', hasattr(cv2, 'aruco'))"
+
+  PrintDBMSVersions:
+    runs-on: ubuntu-24.04
+    needs: [PrintSoftwareVersions]
+
+    steps:
+      - name: Install MongoDB
+        run: |
+          sudo apt-get install -y gnupg curl
+          curl -fsSL https://pgp.mongodb.com/server-8.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
+          echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
+          sudo apt-get update
+          sudo apt-get install -y mongodb-org
+
+      - name: Print MongoDB Version
+        run: mongod --version
