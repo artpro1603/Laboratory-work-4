@@ -20,4 +20,5 @@ jobs:
 
       - name: Validate Python Code
         run: |
-          ruff check ProgramCode.py
+          # ruff check ProgramCode.py
+          ruff check ProgramCodeModified.py
