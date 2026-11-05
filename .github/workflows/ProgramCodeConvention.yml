@@ -1,0 +1,23 @@
+
+name: Python Code Linter
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  PythonCodeLinter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code in Repository
+        uses: actions/checkout@v4
+
+      - name: Install Python Linter Ruff
+        run: |
+          python -m pip install ruff
+
+      - name: Validate Python Code
+        run: |
+          ruff check ProgramCode.py
