@@ -20,5 +20,5 @@ jobs:
 
       - name: Start SQL Linter
         run: |
-          sqlfluff lint $GITHUB_WORKSPACE/DataSchema.sql --dialect postgres
-          # sqlfluff lint $GITHUB_WORKSPACE/DataSchemaModified.sql --dialect postgres
+          # sqlfluff lint $GITHUB_WORKSPACE/DataSchema.sql --dialect postgres
+          sqlfluff lint $GITHUB_WORKSPACE/DataSchemaModified.sql --dialect postgres
